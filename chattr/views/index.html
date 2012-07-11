@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang=en>
+<head>
+  <title>Chattr</title>
+  <link rel=stylesheet type=text/css href=/static/css/reset.css>
+  <link rel=stylesheet type=text/css href=/static/css/style.css>
+  <script rel=javascript type=text/javascript
+    src=/static/js/jquery-1.7.2.min.js></script>
+  <script rel=javascript type=text/javascript
+    src=/static/js/underscore-min.js></script>
+  <script rel=javascript type=text/javascript
+    src=/static/js/backbone-min.js></script>
+  <script rel=javascript type=text/javascript
+    src=/static/js/socket.io.min.js></script>
+  <script rel=javascript type=text/javascript
+    src=/static/js/chattr.js></script>
+</head>
+
+<body>
+  <div id=app>
+    <h1 id=branding>Chattr</h1>
+    <p id=description>Chat with strangers. A simple chat app that
+    demonstrates gevent-socketio on flask with backbone.js.</p>
+    <ul id=chat></ul>
+
+    <form id=chatform>
+      <input type=text class=message placeholder="Enter your message here...">
+      <input type=submit class=button value=Send>
+    </form>
+  </div>
+</body>
+
+<script id=message type=text/html>
+  <span class=name>Anon says</span>: <%- message %>
+</script>
+
+</html>
