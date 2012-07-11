@@ -24,6 +24,7 @@
     <ul id=chat></ul>
 
     <form id=chatform>
+      <input type=text class=alias placeholder="Alias">
       <input type=text class=message placeholder="Enter your message here...">
       <input type=submit class=button value=Send>
     </form>
@@ -33,7 +34,7 @@
 </body>
 
 <script id=message type=text/html>
-  <span class=name>Anon says</span>: <%- message %>
+  <span class=name><%- alias %> says</span>: <%- message %>
 </script>
 
 </html>

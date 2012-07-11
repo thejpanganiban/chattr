@@ -25,11 +25,11 @@ Chattr.views.Message = Chattr.BaseView.extend({
   , className: 'message'
 
   , initialize: function(options) {
-    this.message = options.message;
+    this.data = options.data;
   }
 
   , render: function() {
-    this.$el.html(this.template({message: this.message}));
+    this.$el.html(this.template(this.data));
     return this;
   }
 
@@ -44,9 +44,9 @@ Chattr.views.ChatView = Chattr.BaseView.extend({
     socket.on('chat', _.bind(this.addMessage, this));
   }
 
-  , addMessage: function(message) {
-    this.messages.push(message);
-    var messageView = new Chattr.views.Message({message: message});
+  , addMessage: function(data) {
+    this.messages.push(data);
+    var messageView = new Chattr.views.Message({data: data});
     this.$el.append(messageView.render().el);
     if (this.messages.length % 2) {
       messageView.$el.addClass('alternate');
@@ -70,9 +70,12 @@ Chattr.views.ChatForm = Chattr.BaseView.extend({
 
   , sendMessage: function(e) {
     e.preventDefault();
-    var message = this.$('input.message').val();
-    if (message) {
-      socket.emit('chat', message);
+    var payload = {
+      message: this.$('input.message').val()
+      , alias: this.$('input.alias').val() || 'Anon'
+    };
+    if (payload.message) {
+      socket.emit('chat', payload);
       this.$('input.message').val('');
     }
   }

@@ -27,5 +27,4 @@ def handle_socketio(path):
 
 
 def run():
-  print "Running on 0.0.0.0:53000..."
   SocketIOServer(('0.0.0.0', 53000), app).serve_forever()
