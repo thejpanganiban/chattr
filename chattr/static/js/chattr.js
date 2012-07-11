@@ -48,7 +48,7 @@ Chattr.views.ChatView = Chattr.BaseView.extend({
     this.messages.push(data);
     var messageView = new Chattr.views.Message({data: data});
     this.$el.append(messageView.render().el);
-    this.$el.scrollTop(this.$el.height());
+    this.$el.scrollTop(this.$el.height() + this.$el.scrollTop());
     if (this.messages.length % 2) {
       messageView.$el.addClass('alternate');
     }
