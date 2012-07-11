@@ -5,6 +5,7 @@ packages = ['chattr']
 
 install_requires = [
   'flask==0.9',
+  'gunicorn',
   'gevent-socketio',
 ]
 
