@@ -20,6 +20,15 @@ html {
   text-align: center;
 }
 
+#source {
+  color: #ddd;
+}
+
+#source a {
+  text-decoration: none;
+  color: #00B2EE;
+}
+
 #chat {
   margin-top: 1em;
   width: 800px;
