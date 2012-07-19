@@ -1,4 +1,4 @@
-var Chattr = { views: {} };
+var Chattr = { views: {}, models: {}, collections: {} };
 
 
 (function($, undefined) {
@@ -25,7 +25,7 @@ Chattr.views.Message = Chattr.BaseView.extend({
   , className: 'message'
 
   , initialize: function(options) {
-    this.data = options.data;
+    this.data = options.model.toJSON();
   }
 
   , render: function() {
@@ -35,27 +35,49 @@ Chattr.views.Message = Chattr.BaseView.extend({
 
 });
 
+Chattr.models.Message = Backbone.Model.extend({
+
+  idAttribute: '_id'
+
+});
+
+Chattr.collections.Messages = Backbone.Collection.extend({
+
+  model: Chattr.models.Message
+
+  , comparator: function(model) {
+    return model.get('time');
+  }
+});
+
 Chattr.views.ChatView = Chattr.BaseView.extend({
 
   el: '#chat'
 
   , initialize: function(options) {
-    this.messages = [];
-    socket.on('chat', _.bind(this.addMessage, this));
+    this.messages = new Chattr.collections.Messages(options.messages);
+    socket.on('chat', _.bind(this.rawAddMessage, this));
+    this.count = 0;
   }
 
-  , addMessage: function(data) {
-    this.messages.push(data);
-    var messageView = new Chattr.views.Message({data: data});
-    this.$el.append(messageView.render().el);
-    this.$el.scrollTop(this.$el.height() + this.$el.scrollTop());
-    if (this.messages.length % 2) {
+  , addMessage: function(model) {
+    var messageView = new Chattr.views.Message({model: model});
+    if (this.count % 2) {
       messageView.$el.addClass('alternate');
     }
+    this.$el.append(messageView.render().el);
+    this.$el.scrollTop(this.$el.height() + this.$el.scrollTop());
+    this.count++;
+  }
+
+  , rawAddMessage: function(data) {
+    var message = new Chattr.models.Message(data);
+    this.messages.add(message);
+    this.addMessage(message);
   }
 
   , render: function() {
-    _.each(this.messages, this.addMessage, this);
+    this.messages.each(this.addMessage, this);
     return this;
   }
 
@@ -84,11 +106,3 @@ Chattr.views.ChatForm = Chattr.BaseView.extend({
 });
 
 })(jQuery);
-
-$(document).ready(function() {
-
-Chattr.chatForm = new Chattr.views.ChatForm();
-
-Chattr.chatView = new Chattr.views.ChatView().render();
-
-});

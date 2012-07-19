@@ -14,13 +14,23 @@
     src=/static/js/socket.io.min.js></script>
   <script rel=javascript type=text/javascript
     src=/static/js/chattr.js></script>
-</head>
+<script rel=javascript type=text/javascript>
+$(document).ready(function() {
 
+Chattr.chatForm = new Chattr.views.ChatForm();
+
+Chattr.chatView = new Chattr.views.ChatView({
+  messages: {{ messages|safe }}
+}).render();
+
+});
+</script>
+</head>
 <body>
   <div id=app>
     <h1 id=branding>Chattr</h1>
     <p id=description>Chat with strangers. A simple chat app that
-    demonstrates gevent-socketio on flask with backbone.js.</p>
+    demonstrates gevent-socketio on flask with backbone.js (now with pymongo!)</p>
     <ul id=chat></ul>
 
     <form id=chatform>
@@ -34,7 +44,8 @@
 </body>
 
 <script id=message type=text/html>
-  <span class=alias><%- alias %></span> says: <%- message %>
+  <span class=alias><%- alias %></span> <span class=verb>says</span> <%- message %>
+  <span class=time><%- new Date(time*1000).toLocaleTimeString() %></span>
 </script>
 
 </html>

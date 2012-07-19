@@ -51,6 +51,17 @@ html {
   font-weight: bold;
 }
 
+#chat .verb {
+  font-size: 0.8em;
+  color: #888;
+}
+
+#chat .time {
+  font-size: 0.8em;
+  float: right;
+  color: #888;
+}
+
 #chat .message.alternate {
   background-color: #ddd;
 }
