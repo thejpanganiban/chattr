@@ -32,7 +32,13 @@ thus a KeyError (socketio\_manage method)
 On Multiple Workers: You need to configure socketio to use RedisStore (haven't tried
 it yet on gevent-socketio) as [https://github.com/LearnBoost/Socket.IO/wiki/Configuring-Socket.IO][2]
 
+##Other cool stuff
+
+[DevQus][3], a pyramid-based that uses Server-Side Events (instead of
+websockets/socketio)
+
 
 [0]: http://chattr.jpanganiban.com/
 [1]: https://github.com/yaoweibin/nginx_tcp_proxy_module/
 [2]: https://github.com/LearnBoost/Socket.IO/wiki/Configuring-Socket.IO]
+[3]: https://github.com/marconi/devqus
